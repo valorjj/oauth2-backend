@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: local
+  config:
+    import:
+      - classpath:config/config-jwt.yml
+      - classpath:config/config-oauth2-google.yml
+      - classpath:config/config-oauth2-naver.yml
+      - classpath:config/config-oauth2-github.yml
+      - classpath:config/config-oauth2-kakao.yml

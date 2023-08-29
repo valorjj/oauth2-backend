@@ -1,0 +1,17 @@
+jwt:
+  # WARNING: Base64 으로 인코딩 한 뒤 사용
+  jwt-secret-key: "spring-boot-security-jwt-tutorial-jj-spring-boot-security-jwt-tutorial"
+  # 쿠키 생성 시 key 로 사용되는 값
+  cookie-refresh-token-key: "refresh"
+  # 사용 목적 불분명
+  authorities-key: "ROLE"
+  # access token props
+  access-token:
+    # 1000 * 60 * 20 (= 20 minutes)
+    expiration: 1200000
+    header: "access-token-header"
+  # refresh token props
+  refresh-token:
+    # 1000 * 60 * 60 * 24 * 7 (= 7 days)
+    expiration: 604800000
+    header: "refresh-token-header"

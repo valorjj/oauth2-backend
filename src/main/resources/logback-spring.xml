@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+
+    <!-- 날짜 출력 패턴 설정 -->
+    <timestamp key="BY_DATE" datePattern="yyyy-MM-dd"/>
+    <!-- 절대 위치 설정 -->
+    <property name="LOG_ABSOLUTE_PATH" value="./logs"/>
+    <!-- 백업 위치 설정 -->
+    <property name="LOG_BACKUP_PATH" value="./logs/backup"/>
+    <!-- 콘솔 출력 패턴 설정 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative] %clr(%-5level) %clr(${PID:-}){magenta} %clr(---){faint} %clr([%15.15thread]){faint} %clr(%-40.40logger{36}){cyan} %clr(:){faint} %yellow(%msg%n)"/>
+    <!-- 파일 패턴 설정 -->
+    <property name="FILE_LOG_PATTERN"
+              value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative] %-5level ${PID:-} --- [%15.15thread] %-40.40logger{36} : %msg%n"/>
+
+
+    <!--
+    <appender> 를 설정하는 파일을 나눠서 작성하는 편이 보기가 깔끔합니다.
+    콘솔에 어떻게 출력할지, 파일로는 어떻게 저장할지를 상세하게 설정할 수 있습니다.
+    RollingFileAppender, SizeAndTimeBasedRollingPolicy 등을 이용해서 유동적으로 로그를 저장할 수 있습니다.
+    보관하는 날짜, 파일이 저장될 경로, 파일의 이름, 파일의 최대 사이즈 등을 설정합니다.
+
+    ThresholdFilter 를 이용해서 특정 로그 레벨내에 해당하는 모든 로그에 대해 적용시킵니다.
+    LevelFilter 를 통해서 정확하게 일치하는 로그만을 필터링 할 수 있습니다.
+    -->
+
+    <!-- TRACE 레벨 콘솔 출력 설정 -->
+    <include resource="log-config/console-trace-appender.xml"/>
+    <!-- DEBUG 레벨 콘솔 출력 설정 -->
+    <include resource="log-config/console-debug-appender.xml"/>
+    <!-- INFO 레벨 콘솔 출력 설정 -->
+    <include resource="log-config/console-info-appender.xml"/>
+    <!-- ERROR 레벨 콘솔 출력 설정 -->
+    <include resource="log-config/console-error-appender.xml"/>
+
+    <!-- DEBUG 레벨 로그 파일 저장 설정 -->
+    <include resource="log-config/file-debug-appender.xml"/>
+    <!-- ERROR 레벨 로그 파일 저장 설정 -->
+    <include resource="log-config/file-error-appender.xml"/>
+    <!-- INFO 레벨 로그 파일 저장 설정 -->
+    <include resource="log-config/file-info-appender.xml"/>
+
+
+    <!--
+    프로파일 별로 설정을 다르게 적용할 수 있습니다. 필요 시 yaml 파일에서 값을 호출할 수도 있습니다. (시도해봤으나 자꾸 오류가 발생해서 패스했습니다.)
+    root 레벨을 설정할 수 있고, logger 를 사용해서 패키지를 특정할 수 있습니다. root, logger 내에서 어떤 appender 지정해야 합니다.
+    logger 내에서 name 안에 입력하는 값은 패키지 경로입니다. 기능의 중요도, 호출되는 횟수에 따라서 출력되거나 저장되는 로그를 튜닝할 수 있습니다.
+    -->
+    <!-- profile: local 일 경우-->
+    <springProfile name="local">
+        <!--
+        local 개발 단계인 경우, 모든 로그를 확인하고자 trace 레벨로 콘솔을 확인합니다.
+        -->
+        <logger name="com.example.oauth2backend" level="trace">
+            <appender-ref ref="CONSOLE-TRACE"/>
+        </logger>
+        <root level="info">
+            <appender-ref ref="CONSOLE-INFO"/>
+        </root>
+    </springProfile>
+
+    <!-- profile: dev 일 경우 -->
+    <springProfile name="dev">
+        <!--
+        dev 단계일 경우 debug 로그까지 콘솔에 출력합니다.
+        로그 파일은 error 만 남깁니다.
+        -->
+        <logger name="com.example.oauth2backend" level="info">
+            <appender-ref ref="FILE-ERROR"/>
+            <appender-ref ref="CONSOLE-DEBUG"/>
+        </logger>
+        <logger name="org.springframework.web" level="info">
+            <appender-ref ref="CONSOLE-INFO"/>
+        </logger>
+        <root level="info">
+            <appender-ref ref="CONSOLE-INFO"/>
+        </root>
+    </springProfile>
+
+    <!-- profile: prod 일 경우 -->
+    <springProfile name="prod">
+        <!--
+        prod 단계인 경우, 로그 파일은 error 만 남깁니다.
+        콘솔에는 info, warn, error 메시지를 출력합니다.
+        -->
+        <logger name="com.example.oauth2backend | org.springframework.web" level="info">
+            <appender-ref ref="FILE-ERROR"/>
+            <appender-ref ref="CONSOLE-INFO"/>
+        </logger>
+        <root level="info">
+            <appender-ref ref="CONSOLE-INFO"/>
+        </root>
+    </springProfile>
+
+</configuration>
