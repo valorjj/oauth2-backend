@@ -23,7 +23,7 @@ public class GoogleAuthCodeRequestUrlProvider implements AuthCodeRequestUrlProvi
 	private final OAuth2GoogleProperties googleProperties;
 
 	@Override
-	public OAuth2ProviderType getRegisteredProviderType() {
+	public OAuth2ProviderType getOAuth2ProviderType() {
 		return OAuth2ProviderType.GOOGLE;
 	}
 

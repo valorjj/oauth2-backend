@@ -20,11 +20,10 @@ public class AuthCodeRequestUrlProviderComposite {
 	private final Map<OAuth2ProviderType, AuthCodeRequestUrlProvider> mapping;
 
 	/*
-	* 현재 AuthCodeRequestUrlProviderComposite 에 값을 넣어주는 곳이 없어서 null 값
-	* */
+	 * 현재 AuthCodeRequestUrlProviderComposite 에 값을 넣어주는 곳이 없어서 null 값
+	 * */
 	public AuthCodeRequestUrlProviderComposite(Set<AuthCodeRequestUrlProvider> providers) {
-		Collector<AuthCodeRequestUrlProvider, ?, Map<OAuth2ProviderType, Object>> map = toMap(AuthCodeRequestUrlProvider::getRegisteredProviderType, identity());
-		mapping = providers.stream().collect(toMap(AuthCodeRequestUrlProvider::getRegisteredProviderType, identity()));
+		this.mapping = providers.stream().collect(toMap(AuthCodeRequestUrlProvider::getOAuth2ProviderType, identity()));
 	}
 
 	public String provide(OAuth2ProviderType oAuth2ProviderType) {

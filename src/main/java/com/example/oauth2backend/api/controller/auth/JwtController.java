@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j
@@ -23,15 +20,29 @@ public class JwtController {
 
 
 	@SneakyThrows
-	@GetMapping("/{providerType}")
-	ResponseEntity<?> redirectAuthCodeRequestUrl(
-			@PathVariable("providerType") OAuth2ProviderType oAuth2ProviderType,
+	@GetMapping("/{oAuth2ProviderType}")
+	public ResponseEntity<Void> redirectAuthCodeRequestUrl(
+			@PathVariable OAuth2ProviderType oAuth2ProviderType,
 			HttpServletResponse response
 	) {
 		String redirectUrl = jwtService.getAuthCodeRequestUrl(oAuth2ProviderType);
-		log.info("[+] redirectUrl := [{}]", redirectUrl);
+		log.info("[i] redirectUrl := [{}]", redirectUrl);
 		response.sendRedirect(redirectUrl);
 		return ResponseEntity.ok().build();
+	}
+
+	/**
+	 * @param oAuth2ServerType 인가서버 종류
+	 * @param code             인가코드
+	 * @return
+	 */
+	@GetMapping("/login/{oAuth2ProviderType}")
+	public ResponseEntity<Long> oAuth2Login(
+			@PathVariable(name = "oAuth2ProviderType") OAuth2ProviderType oAuth2ServerType,
+			@RequestParam(name = "code") String code
+	) {
+		Long loginOAuth2UserId = jwtService.oAuth2Login(oAuth2ServerType, code);
+		return ResponseEntity.ok(loginOAuth2UserId);
 	}
 
 }

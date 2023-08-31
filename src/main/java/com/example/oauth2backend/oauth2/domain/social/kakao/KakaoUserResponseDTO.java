@@ -5,6 +5,7 @@ import com.example.oauth2backend.oauth2.domain.OAuth2ProviderType;
 import com.example.oauth2backend.oauth2.domain.OAuth2User;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import org.springframework.context.annotation.Profile;
 
 import java.time.LocalDateTime;
 
@@ -29,9 +30,9 @@ public record KakaoUserResponseDTO(
 	 */
 	public OAuth2User toEntity() {
 		return OAuth2User.builder()
-				.oAuth2Id(new OAuth2Id(String.valueOf(id), KAKAO))
-				.nickname(kakaoAccount().nickname)
-				.profileImageUrl(kakaoAccount().picture)
+				.oauth2Id(new OAuth2Id(String.valueOf(id), KAKAO))
+				.nickname(kakaoAccount.profile.nickname)
+				.profileImageUrl(kakaoAccount.profile.profileImageUrl)
 				.build();
 	}
 
@@ -40,29 +41,41 @@ public record KakaoUserResponseDTO(
 	 * <a href="https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#req-oidc-user-info-response">카카오 개발자센터</a> 를 참조
 	 * OpenID Connect 를 이용해 데이터를 받습니다.
 	 */
-
+	@JsonNaming(SnakeCaseStrategy.class)
 	public record KakaoAccount(
-			// 회원번호
-			String sub,
-			// 카카오계정 이름
+			boolean profileNeedsAgreement,
+			boolean profileNicknameNeedsAgreement,
+			boolean profileImageNeedsAgreement,
+			Profile profile,
+			boolean nameNeedsAgreement,
 			String name,
-			// 서비스에서 쓰이는 사용자 닉네임
-			// 기본값: 앱 연결 시 카카오계정 닉네임
-			String nickname,
-			// 서비스에서 쓰이는 사용자 썸네일 이미지 URL
-			String picture,
-			// 카카오계정 대표 이메일
+			boolean emailNeedsAgreement,
+			boolean isEmailValid,
+			boolean isEmailVerified,
 			String email,
-			// 카카오계정 이메일의 인증 및 유효 여부
-			Boolean email_verified,
-			// 카카오계정 성별
+			boolean ageRangeNeedsAgreement,
+			String ageRange,
+			boolean birthyearNeedsAgreement,
+			String birthyear,
+			boolean birthdayNeedsAgreement,
+			String birthday,
+			String birthdayType,
+			boolean genderNeedsAgreement,
 			String gender,
-			// 카카오계정 생년월일
-			String birthdate,
-			// 카카오계정 전화번호
-			String phone_number,
-			// 카카오계정 전화번호 인증 여부
-			Boolean phone_number_verified
+			boolean phoneNumberNeedsAgreement,
+			String phoneNumber,
+			boolean ciNeedsAgreement,
+			String ci,
+			LocalDateTime ciAuthenticatedAt
+	) {
+	}
+
+	@JsonNaming(SnakeCaseStrategy.class)
+	public record Profile(
+			String nickname,
+			String thumbnailImageUrl,
+			String profileImageUrl,
+			boolean isDefaultImage
 	) {
 	}
 

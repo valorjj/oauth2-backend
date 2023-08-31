@@ -16,18 +16,18 @@ public class KakaoAuthCodeRequestUrlProvider implements AuthCodeRequestUrlProvid
 	private final OAuth2KakaoProperties kakaoProperties;
 
 	@Override
-	public OAuth2ProviderType getRegisteredProviderType() {
+	public OAuth2ProviderType getOAuth2ProviderType() {
 		return OAuth2ProviderType.KAKAO;
 	}
 
 	@Override
 	public String provideRedirectUrl() {
 		return UriComponentsBuilder
-				.fromUriString(kakaoProperties.getAuthorizationCodeUri())
+				.fromUriString(kakaoProperties.authorizationCodeUri())
 				.queryParam("response_type", "code")
-				.queryParam("client_id", kakaoProperties.getClientId())
-				.queryParam("redirect_uri", kakaoProperties.getRedirectUri())
-				.queryParam("scope", String.join(" ", kakaoProperties.getScope()))
+				.queryParam("client_id", kakaoProperties.restApiKey())
+				.queryParam("redirect_uri", kakaoProperties.redirectUri())
+				.queryParam("scope", String.join(" ", kakaoProperties.scope()))
 				.toUriString();
 	}
 }

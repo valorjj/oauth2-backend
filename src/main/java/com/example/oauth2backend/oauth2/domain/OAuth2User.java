@@ -7,9 +7,7 @@ import static jakarta.persistence.GenerationType.*;
 import static lombok.AccessLevel.*;
 
 
-@Getter
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor(access = PROTECTED)
 @Table(name = "OAUTH2_USER_TB",
 		uniqueConstraints = {
@@ -24,6 +22,9 @@ import static lombok.AccessLevel.*;
 
 		}
 )
+@AllArgsConstructor
+@Builder
+@Getter
 public class OAuth2User {
 
 	@Id
@@ -31,7 +32,7 @@ public class OAuth2User {
 	private Long id;
 
 	@Embedded
-	private OAuth2Id oAuth2Id;
+	private OAuth2Id oauth2Id;
 
 	@Column(name = "OAUTH2_USER_EMAIL")
 	private String email;
@@ -43,11 +44,4 @@ public class OAuth2User {
 	private String profileImageUrl;
 
 
-	@Builder
-	public OAuth2User(OAuth2Id oAuth2Id, String email, String nickname, String profileImageUrl) {
-		this.oAuth2Id = oAuth2Id;
-		this.email = email;
-		this.nickname = nickname;
-		this.profileImageUrl = profileImageUrl;
-	}
 }
