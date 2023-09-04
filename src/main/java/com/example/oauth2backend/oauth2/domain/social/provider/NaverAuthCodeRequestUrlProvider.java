@@ -1,10 +1,12 @@
-package com.example.oauth2backend.oauth2.provider;
+package com.example.oauth2backend.oauth2.domain.social.provider;
 
 import com.example.oauth2backend.com.env.OAuth2NaverProperties;
 import com.example.oauth2backend.oauth2.domain.OAuth2ProviderType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Base64;
 
 @Component
 @RequiredArgsConstructor
@@ -24,7 +26,8 @@ public class NaverAuthCodeRequestUrlProvider implements AuthCodeRequestUrlProvid
 				.queryParam("response_type", "code")
 				.queryParam("client_id", naverProperties.clientId())
 				.queryParam("redirect_uri", naverProperties.redirectUri())
-				.queryParam("state", naverProperties.state())
-				.build().toString();
+				.queryParam("state", Base64.getEncoder().encodeToString(naverProperties.state().getBytes()))
+				.build()
+				.toString();
 	}
 }

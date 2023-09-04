@@ -1,11 +1,9 @@
 package com.example.oauth2backend.oauth2.domain.social.kakao;
 
 import com.example.oauth2backend.oauth2.domain.OAuth2Id;
-import com.example.oauth2backend.oauth2.domain.OAuth2ProviderType;
 import com.example.oauth2backend.oauth2.domain.OAuth2User;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import org.springframework.context.annotation.Profile;
 
 import java.time.LocalDateTime;
 

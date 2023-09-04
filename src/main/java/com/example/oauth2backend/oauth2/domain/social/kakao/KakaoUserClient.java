@@ -34,8 +34,8 @@ public class KakaoUserClient implements OAuth2UserClient {
 	 * @return
 	 */
 	@Override
-	public OAuth2User fetchUserInfo(String authorizationCode) {
-		KakaoTokenDTO oAuth2TokenDTO = kakaoApiClient.fetchAuthToken(extractRequestParametersFromAuthToken(authorizationCode));
+	public OAuth2User fetch(String authorizationCode) {
+		KakaoTokenDTO oAuth2TokenDTO = kakaoApiClient.fetchAuthToken(tokenRequestParams(authorizationCode));
 		return kakaoApiClient
 				.fetchOAuth2User(TOKEN_PREFIX + oAuth2TokenDTO.accessToken())
 				.toEntity();
@@ -47,7 +47,7 @@ public class KakaoUserClient implements OAuth2UserClient {
 	 * @param authorizationCode
 	 * @return
 	 */
-	private MultiValueMap<String, String> extractRequestParametersFromAuthToken(String authorizationCode) {
+	private MultiValueMap<String, String> tokenRequestParams(String authorizationCode) {
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 		parameters.add("grant_type", "authorization_code");
 		parameters.add("client_id", kakaoProperties.restApiKey());

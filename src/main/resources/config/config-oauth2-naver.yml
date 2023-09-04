@@ -1,8 +1,8 @@
 oauth2:
   naver:
-    client-secret: ${OAUTH2_KAKAO_CLIENT_SECRET}
-    client-id: ${OAUTH2_KAKAO_CLIENT_ID}
+    client-id: ${OAUTH2_NAVER_CLIENT_ID}
+    client-secret: ${OAUTH2_NAVER_CLIENT_SECRET}
+    redirect-uri: ${OAUTH2_NAVER_REDIRECT_URI}
     authorization-code-uri: https://nid.naver.com/oauth2.0/authorize
-    redirect-uri: http://localhost:3000/oauth2/redirected/naver
     state: "WHAT-IS-THIS"
     scope:

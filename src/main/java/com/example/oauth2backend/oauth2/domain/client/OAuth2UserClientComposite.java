@@ -30,9 +30,9 @@ public class OAuth2UserClientComposite {
 				));
 	}
 
-	public OAuth2User fetchUserInfo(OAuth2ProviderType oAuth2ProviderType, String authorizationCode) {
+	public OAuth2User fetch(OAuth2ProviderType oAuth2ProviderType, String authorizationCode) {
 		return getClient(oAuth2ProviderType)
-				.fetchUserInfo(authorizationCode);
+				.fetch(authorizationCode);
 	}
 
 	private OAuth2UserClient getClient(OAuth2ProviderType oAuth2ProviderType) {

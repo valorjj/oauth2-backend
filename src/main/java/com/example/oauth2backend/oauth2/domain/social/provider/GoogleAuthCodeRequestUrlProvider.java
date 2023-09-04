@@ -1,14 +1,12 @@
-package com.example.oauth2backend.oauth2.provider;
+package com.example.oauth2backend.oauth2.domain.social.provider;
 
 import com.example.oauth2backend.com.env.OAuth2GoogleProperties;
 import com.example.oauth2backend.oauth2.domain.OAuth2ProviderType;
-import com.example.oauth2backend.oauth2.util.OAuth2Util;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import static com.example.oauth2backend.oauth2.util.OAuth2Util.*;
 
 /**
  * <a href="https://accounts.google.com/.well-known/openid-configuration">oauth2 configuration</a> 에서
@@ -30,11 +28,14 @@ public class GoogleAuthCodeRequestUrlProvider implements AuthCodeRequestUrlProvi
 	@Override
 	public String provideRedirectUrl() {
 		return UriComponentsBuilder
-				.fromUriString(googleProperties.getAuthorizationCodeUri())
+				.fromUriString(googleProperties.authorizationCodeUri())
 				.queryParam("response_type", "code")
-				.queryParam("client_id", googleProperties.getClientId())
-				.queryParam("redirect_uri", googleProperties.getRedirectUri())
-				.queryParam("scope", createStringFromScope(googleProperties.getScope()))
-				.toUriString();
+				.queryParam("client_id", googleProperties.clientId())
+				.queryParam("redirect_uri", googleProperties.redirectUri())
+				.queryParam("scope", String.join(" ", googleProperties.scope()))
+				.queryParam("state", "google-state-sample")
+				.queryParam("access_type", "offline")
+				.build()
+				.toString();
 	}
 }

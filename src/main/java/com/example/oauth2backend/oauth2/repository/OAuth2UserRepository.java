@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface OAuth2UserRepository extends JpaRepository<OAuth2User, Long> {
 
-	Optional<OAuth2User> findByOauth2Id(OAuth2Id oAuth2Id);
+	Optional<OAuth2User> findByOauth2Id(OAuth2Id oauth2Id);
 
 }

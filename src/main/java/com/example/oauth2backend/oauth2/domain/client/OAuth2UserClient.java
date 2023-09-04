@@ -20,6 +20,6 @@ public interface OAuth2UserClient {
 	 * @param authorizationCode 엑세스, 리프레시 토큰을 인가서버로부터 받아오기 위한 인가 코드
 	 * @return {@link OAuth2User}
 	 */
-	OAuth2User fetchUserInfo(String authorizationCode);
+	OAuth2User fetch(String authorizationCode);
 
 }

@@ -1,4 +1,4 @@
-package com.example.oauth2backend.oauth2.provider;
+package com.example.oauth2backend.oauth2.domain.social.provider;
 
 import com.example.oauth2backend.oauth2.domain.OAuth2ProviderType;
 

@@ -1,5 +1,6 @@
 package com.example.oauth2backend.oauth2.domain;
 
+import com.example.oauth2backend.com.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,16 +20,16 @@ import static lombok.AccessLevel.*;
 						}
 
 				)
-
 		}
 )
 @AllArgsConstructor
 @Builder
 @Getter
-public class OAuth2User {
+public class OAuth2User extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+	@Column(name="OAUTH2_USER_ID")
 	private Long id;
 
 	@Embedded
@@ -42,6 +43,5 @@ public class OAuth2User {
 
 	@Column(name = "OAUTH2_USER_PROFILE_IMG")
 	private String profileImageUrl;
-
 
 }

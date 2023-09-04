@@ -1,10 +1,10 @@
 oauth2:
   google:
-    redirect-uri: "http://localhost:3000/oauth2/redirected/google"
+    redirect-uri: ${OAUTH2_GOOGLE_REDIRECT_URI}
     client-id: ${OAUTH2_GOOGLE_CLIENT_ID}
     client-secret: ${OAUTH2_GOOGLE_CLIENT_SECRET}
     authorization-code-uri: "https://accounts.google.com/o/oauth2/v2/auth"
     scope:
-      - openid
+      # - openid
       - profile
       - email

@@ -22,46 +22,31 @@ repositories {
 }
 
 dependencies {
+
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-    /*
-    스프링 시큐리티를 사용하지 않음으로서 확장성을 확보합니다.
-    스프링 시큐리티 내에서 제공하는 정해진 필터만을 사용해야하고, 모든 데이터 또한 정해진 규격에 맞춰야 합니다.
-    스프링 사용하지 않는다면, 직접 필요한 기능만을 골라서 구현할 수 있습니다.
-    * */
-    // implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    // implementation 'org.springframework.boot:spring-boot-starter-security'
-
-    // implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-    // implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-
-
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.jetbrains:annotations:24.0.0'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-    // runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
-
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
-
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
-
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
-
     testImplementation 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 
-    // 외부 라이브러리
+
+    // https://mvnrepository.com/artifact/io.netty/netty-resolver-dns-native-macos
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
+
+    // Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+
     implementation 'com.auth0:java-jwt:4.2.1'
 }
 

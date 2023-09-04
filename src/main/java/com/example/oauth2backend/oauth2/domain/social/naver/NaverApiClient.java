@@ -12,10 +12,10 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 public interface NaverApiClient {
 
-	@PostExchange(NAVER_OAUTH2_AUTH_TOKEN_URL)
-	NaverTokenDTO fetchAuthToken(@RequestParam("parameters") MultiValueMap<String, String> parameters);
+	@PostExchange(url = NAVER_OAUTH2_AUTH_TOKEN_URL)
+	NaverTokenDTO fetchAuthToken(@RequestParam(name = "parameters") MultiValueMap<String, String> parameters);
 
-	@GetExchange(NAVER_OAUTH2_USER_INFO)
+	@GetExchange(url = NAVER_OAUTH2_USER_INFO)
 	NaverUserResponseDTO fetchUserInfo(@RequestHeader(name = AUTHORIZATION) String bearerToken);
 
 }

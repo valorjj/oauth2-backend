@@ -1,6 +1,7 @@
 package com.example.oauth2backend.config;
 
 
+import com.example.oauth2backend.oauth2.domain.social.google.GoogleApiClient;
 import com.example.oauth2backend.oauth2.domain.social.kakao.KakaoApiClient;
 import com.example.oauth2backend.oauth2.domain.social.naver.NaverApiClient;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,11 @@ public class HttpInterfaceConfig {
 	@Bean
 	public KakaoApiClient kakaoApiClient() {
 		return createHttpInterface(KakaoApiClient.class);
+	}
+
+	@Bean
+	public GoogleApiClient googleApiClient() {
+		return createHttpInterface(GoogleApiClient.class);
 	}
 
 	private <T> T createHttpInterface(Class<T> clazz) {

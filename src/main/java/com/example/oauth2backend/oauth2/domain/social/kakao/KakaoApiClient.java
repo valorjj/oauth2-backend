@@ -23,7 +23,7 @@ public interface KakaoApiClient {
 	 * @param parameters
 	 * @return
 	 */
-	@PostExchange(url = KAKAO_OAUTH2_AUTH_TOKEN_URL, contentType = APPLICATION_FORM_URLENCODED_VALUE)
+	@PostExchange(url = KAKAO_OAUTH2_AUTH_TOKEN_URL)
 	KakaoTokenDTO fetchAuthToken(@RequestParam(name = "parameters") MultiValueMap<String, String> parameters);
 
 	/**

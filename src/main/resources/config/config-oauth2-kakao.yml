@@ -3,8 +3,6 @@ oauth2:
     rest-api-key: ${OAUTH2_KAKAO_REST_API_KEY}
     client-secret: ${OAUTH2_KAKAO_CLIENT_SECRET}
     client-id: ${OAUTH2_KAKAO_CLIENT_ID}
-    client-authentication-method: client_secret_post
-    authorization-grant-type: authorization_code
     authorization-code-uri: https://kauth.kakao.com/oauth/authorize
     redirect-uri: http://localhost:3000/oauth2/redirected/kakao
     scope:
